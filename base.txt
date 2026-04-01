@@ -1,0 +1,14 @@
+1 projeto pra não parar ate concluir
+
+2 projeto pra treinar buscas em api, git, strealit
+2.1 criar uma base, um main, e as alterações fazer por famificações.
+
+3 fazer um webpage que mostre aovivo as 10 maiores empresas do mundo e seu valor de marcado em tempo real
+3.1 futuramente colocar mais detalhes de cada empresa, pequeno texto com um pouco da historia, valores do ultimo ano.
+
+
+
+yfinance → puxa dados reais de graça (sem chave API).
+pandas → limpa e organiza.
+plotly → gráficos lindos e interativos.
+streamlit → dashboard web em 20 linhas de código.
