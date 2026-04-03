@@ -14,8 +14,23 @@ st.write("por valor de mercado - preços aproximados em USD")
 
 
 # siglas das empresas
-empresas = [    "NVDA","AAPL","GOOGL","MSFT","AMZN","TSM","2222.SR","AVGO","META","TSLA",
+empresas = ["NVDA","AAPL","GOOGL","MSFT","AMZN","TSM","2222.SR","AVGO","META","TSLA",
     "BRK-B","WMT","LLY","JPM","XOM","V","JNJ","MA","COST","ORCL"]
+
+
+# função para formatar os valores
+
+def formatar_valor(valor):
+    if valor >= 1e12:
+        return f"{valor / 1e12:.2f} tri"
+    elif valor >= 1e9: 
+        return f"{valor / 1e9:.2f} bi"
+    elif valor >= 1e6:
+        return f"{valor / 1e6:.2f} mi"
+    else:
+        return f"{valor:.0f}"
+
+
 
 # função pra pegar dados
 @st.cache_data
@@ -24,6 +39,18 @@ def get_info(empresa):
     informacao = stock.info
     
     nome = informacao.get('displayName') or informacao.get('shortName') or informacao.get("longName") or empresa # fallback para o nome da empresa caso displayName ou shortName sejam None
+
+    # normaliza nomes que queremos substituir manualmente
+    apelidos = {
+        "Amazon.com": "Amazon",
+        "Alphabet Inc.": "Google",
+        "Meta Platforms": "Meta",
+        "Saudi Arabian Oil Co.":"saudiaramco",
+        "berkshire hathaway":"berkshirehathaway",
+        "Taiwan Semiconductor Manufacturing Company":"TSMC"       
+    }
+    nome = apelidos.get(nome, nome)
+
     seguimento = informacao.get('industry')
     valorCota = informacao.get('currentPrice')
     valorMercado = informacao.get('marketCap') or 0 #as vezes o valor de mercado pode ser None, então usamos 0 como fallback
@@ -62,7 +89,7 @@ st.markdown(f"""
             <img src="https://img.logo.dev/{top_10[0][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
                 <h2>{top_10[0][ "nome" ]}</h2>
                 <h2>{top_10[0]["valorCota"]}</h2>
-                <h2>{top_10[0]["valorMercado"]}</h2>
+                <h2>{f"${formatar_valor(top_10[0]["valorMercado"])}"}</h2>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -76,7 +103,7 @@ st.markdown(f"""
             <img src="https://img.logo.dev/{top_10[1][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
                 <h2>{top_10[1][ "nome" ]}</h2>
                 <h2>{top_10[1]["valorCota"]}</h2>
-                <h2>{top_10[1]["valorMercado"]}</h2>
+                <h2>{f"${formatar_valor(top_10[1]["valorMercado"])}"}</h2>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -90,7 +117,7 @@ st.markdown(f"""
             <img src="https://img.logo.dev/{top_10[2][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
                 <h2>{top_10[2][ "nome" ]}</h2>
                 <h2>{top_10[2]["valorCota"]}</h2>
-                <h2>{top_10[2]["valorMercado"]}</h2>
+                <h2>{f"${formatar_valor(top_10[2]["valorMercado"])}"}</h2>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -103,7 +130,7 @@ st.markdown(f"""
             <img src="https://img.logo.dev/{top_10[3][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
                 <h2>{top_10[3][ "nome" ]}</h2>
                 <h2>{top_10[3]["valorCota"]}</h2>
-                <h2>{top_10[3]["valorMercado"]}</h2>
+                <h2>{f"${formatar_valor(top_10[3]["valorMercado"])}"}</h2>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -115,7 +142,7 @@ st.markdown(f"""
             <img src="https://img.logo.dev/{top_10[4][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
                 <h2>{top_10[4][ "nome" ]}</h2>
                 <h2>{top_10[4]["valorCota"]}</h2>
-                <h2>{top_10[4]["valorMercado"]}</h2>
+                <h2>{f"${formatar_valor(top_10[4]["valorMercado"])}"}</h2>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -128,7 +155,7 @@ st.markdown(f"""
             <img src="https://img.logo.dev/{top_10[5][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
                 <h2>{top_10[5][ "nome" ]}</h2>
                 <h2>{top_10[5]["valorCota"]}</h2>
-                <h2>{top_10[5]["valorMercado"]}</h2>
+                <h2>{f"${formatar_valor(top_10[5]["valorMercado"])}"}</h2>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -141,7 +168,7 @@ st.markdown(f"""
             <img src="https://img.logo.dev/{top_10[6][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
                 <h2>{top_10[6][ "nome" ]}</h2>
                 <h2>{top_10[6]["valorCota"]}</h2>
-                <h2>{top_10[6]["valorMercado"]}</h2>
+                <h2>{f"${formatar_valor(top_10[6]["valorMercado"])}"}</h2>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -155,7 +182,7 @@ st.markdown(f"""
             <img src="https://img.logo.dev/{top_10[7][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
                 <h2>{top_10[7][ "nome" ]}</h2>
                 <h2>{top_10[7]["valorCota"]}</h2>
-                <h2>{top_10[7]["valorMercado"]}</h2>
+                <h2>{f"${formatar_valor(top_10[7]["valorMercado"])}"}</h2>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -168,7 +195,7 @@ st.markdown(f"""
             <img src="https://img.logo.dev/{top_10[8][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
                 <h2>{top_10[8][ "nome" ]}</h2>
                 <h2>{top_10[8]["valorCota"]}</h2>
-                <h2>{top_10[8]["valorMercado"]}</h2>
+                <h2>{f"${formatar_valor(top_10[8]["valorMercado"])}"}</h2>
             </div>
         </div>
     """, unsafe_allow_html=True)
@@ -181,7 +208,7 @@ st.markdown(f"""
             <img src="https://img.logo.dev/{top_10[9][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
                 <h2>{top_10[9][ "nome" ]}</h2>
                 <h2>{top_10[9]["valorCota"]}</h2>
-                <h2>{top_10[9]["valorMercado"]}</h2>
+                <h2>{f"${formatar_valor(top_10[9]["valorMercado"])}"}</h2>
             </div>
         </div>
     """, unsafe_allow_html=True)
