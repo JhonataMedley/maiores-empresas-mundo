@@ -1,20 +1,58 @@
-# maiores-empresas-mundo
-Projeto pra treinar git e github, request e streamlit
+# Maiores Empresas do Mundo
 
-##obejtivo chegar em um projeto semelhante a foto abaixo
+**Projeto para treinar Git, GitHub, Requests e Streamlit.**
+
+## Objetivo do Projeto
+
+Chegar em um projeto semelhante à imagem abaixo:
 
 ![alt text](image.png)
 
-## 02/04/2026: analisar melhor a api de logo, se dar pra colocar alguma variavel pra buscar o nome certo da empresa, caso nao ache uma solucao criar uma caixinha com o nome do tokem, exp: NVDS - AAPL - GOOGL - FEITO: foi feito um de/para dos nomes que vem para os nomes esperados 
+---
 
-### verificar o filtro das empresas pq tem essa saudin arabian que creio q nao seri uma empresa valida de estar no ranking - FEITO: como arrumeir o caso acima o filtro de empresa pode ser adicionado qualquer empresa, caso nao ache o logo da empresa em questao no top 10, basta colocar ela no filtro do de/para
+## Mudanças, Dificuldades e Soluções Enfrentadas Durante o Projeto
 
-### 03/04/2026: identifiquei que a API do yfinance nem sabre traz o valor em USD, vou ter que converter todos os valores que nao vem em USD para USD e isso muda o ranking 
+Aqui está um resumo organizado e limpo de todo o progresso, dificuldades identificadas e soluções aplicadas até o momento:
 
-a logica vai ser pegar a moeda que a api esta trazendo exp SAR se for diferente de dolar tem que achar ela na lista e na lista fazer um de para 
+### 02/04/2026
 
+**Dificuldades encontradas:**
+- API de logos não estava encontrando o nome correto das empresas automaticamente.
+- Filtro de empresas permitia entradas inválidas (ex: “Saudin Arabian” aparecendo no ranking).
 
-#### formatar o valor de mercado e valor de cota
+**Soluções implementadas:**
+- Criado um **de/para** (mapeamento) dos nomes que vêm da API para os nomes esperados pela API de logos.
+- Melhorado o filtro de empresas: agora é possível adicionar **qualquer empresa** manualmente. Se o logo não for encontrado no top 10, basta incluir o ticker no de/para.
 
+**Status:** ✅ Concluído
 
-# feat: 1° Realizada ajustes de um de -> para nos nomes da empresa para organizar na api de logo - 2° Feita a função para pegar os valores e formatar em Tri, Bi e Mi - 3° Identifiquei que a API do Yfinance nao traz como padrao os valores em USD, tenho que converter esses valores com a api que esta no arquvio teste_coin
+### 03/04/2026
+
+**Dificuldades encontradas:**
+- A API do **yfinance** nem sempre retorna os valores em USD (ex: SAR – Riyal Saudita).
+- Isso alterava completamente o ranking de market cap.
+- Necessidade de formatar os valores de mercado e cotação de forma legível (Tri, Bi, Mi).
+
+**Soluções implementadas:**
+- Lógica criada para detectar a moeda retornada pela API.
+- Se a moeda for diferente de USD, converter o valor usando a API de câmbio (arquivo `teste_coin.py`).
+- Função de formatação de valores em Trilhão, Bilhão e Milhão (Tri, Bi, Mi) já preparada.
+
+**Status:** Em andamento / Parcialmente concluído
+
+### 04/04/2026
+
+**Feats realizados:**
+
+1. **Ajustes no de/para** dos nomes das empresas (melhoria na integração com a API de logos).
+2. **Função de formatação** de valores implementada (Tri, Bi, Mi).
+3. Identificada a necessidade de conversão de moedas (já mapeada para usar a API do arquivo `teste_coin`).
+
+---
+
+**Próximos passos sugeridos (para organizar o README):**
+- Finalizar a conversão completa de moedas e testar o novo ranking em USD.
+- Implementar o filtro dinâmico de empresas no Streamlit.
+- Testar o layout final comparando com a imagem de referência.
+
+Quer que eu ajuste alguma parte, adicione mais seções (como Tecnologias Usadas, Como Rodar, etc.) ou deixe mais curto/mais detalhado?
