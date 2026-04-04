@@ -1,6 +1,7 @@
 import time
 import yfinance as yf
 import streamlit as st
+import requests
 
 #titulo da pagina
 
@@ -17,9 +18,22 @@ st.write("por valor de mercado - preços aproximados em USD")
 empresas = ["NVDA","AAPL","GOOGL","MSFT","AMZN","TSM","2222.SR","AVGO","META","TSLA",
     "BRK-B","WMT","LLY","JPM","XOM","V","JNJ","MA","COST","ORCL"]
 
+# função para pegar a taxa de câmbio
+def get_taxa_cambio(moeda):
+    if moeda == "USD":
+        return 1.0
+    else:
+        url = "https://v6.exchangerate-api.com/v6/e31352a229eabff366b77b76/latest/USD"
+        taxa = requests.get(url)
+        taxa = taxa.json()
+        taxa = taxa["conversion_rates"].get(moeda)
+        return taxa or 1.0  # fallback para 1.0 caso a moeda não seja encontrada
+
+
+
+
 
 # função para formatar os valores
-
 def formatar_valor(valor):
     if valor >= 1e12:
         return f"{valor / 1e12:.2f} tri"
@@ -55,15 +69,22 @@ def get_info(empresa):
     valorCota = informacao.get('currentPrice')
     valorMercado = informacao.get('marketCap') or 0 #as vezes o valor de mercado pode ser None, então usamos 0 como fallback
     site = informacao.get("website")  # ex: https://www.apple.com
+    moeda = informacao.get("currency")  # ex: USD, SAR, etc
 
-    return nome, seguimento, valorCota, valorMercado, site
+
+
+    taxa = get_taxa_cambio(moeda)
+    if moeda != "USD" and taxa:
+        valorMercado = valorMercado / taxa  # Converte para USD
+        valorCota = valorCota / taxa  # Se quiser converter também
+    return nome, seguimento, valorCota, valorMercado, site, moeda
 
 
 data = []
 
 # percorre empresas
 for empresa in empresas:
-    nome, seguimento, valorCota, valorMercado, site = get_info(empresa)
+    nome, seguimento, valorCota, valorMercado, site, moeda = get_info(empresa)
     
     data.append({
         "empresa": empresa,

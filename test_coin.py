@@ -13,6 +13,6 @@ taxa = data["conversion_rates"]["SAR"]
 
 valor_USD = valorempresa / taxa
 
-print(valor_USD)
+#print(valor_USD)
 
-#print(json.dumps(data, indent=4))
+print(json.dumps(data, indent=4))
