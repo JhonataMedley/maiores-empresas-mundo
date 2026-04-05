@@ -2,13 +2,36 @@ import time
 import yfinance as yf
 import streamlit as st
 import requests
+import datetime
+import locale
+
+
+# Atualiza data mes e ano atuomaticamente
+try:
+    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+except locale.Error:
+    locale.setlocale(locale.LC_ALL, 'Portuguese_Brazil')  # fallback para Windows
+
+now = datetime.datetime.now()
+month = now.strftime("%B")
+
 
 #titulo da pagina
 
 st.set_page_config(page_title="Top 10 Empresas", layout="wide", page_icon="📈")
 
-st.title("10 Maiores Empresas do Mundo")
-st.write("por valor de mercado - preços aproximados em USD")
+
+
+st.markdown(f"""
+    <div style="text-align: center;">
+        <h2 style = "font-size: 30px; color: rgb(128, 0, 255)">RANKING GLOBAL - {month.upper()} {now.year}</h2>
+        <h1 style = "font-size: 75px;">10 Maiores Empresas do Mundo</h1>
+        <p style = "font-size: 25px;">por valor de mercado - preços aproximados em USD</p>
+    </div>            
+
+
+
+            """, unsafe_allow_html=True)
 
 
 
@@ -70,21 +93,22 @@ def get_info(empresa):
     valorMercado = informacao.get('marketCap') or 0 #as vezes o valor de mercado pode ser None, então usamos 0 como fallback
     site = informacao.get("website")  # ex: https://www.apple.com
     moeda = informacao.get("currency")  # ex: USD, SAR, etc
-
+    codigo = informacao.get("symbol")  # ex: AAPL, 2222.SR, etc
+    pais = informacao.get("country")  # ex: United States, Saudi Arabia, etc
 
 
     taxa = get_taxa_cambio(moeda)
     if moeda != "USD" and taxa:
         valorMercado = valorMercado / taxa  # Converte para USD
         valorCota = valorCota / taxa  # Se quiser converter também
-    return nome, seguimento, valorCota, valorMercado, site, moeda
+    return nome, seguimento, valorCota, valorMercado, site, moeda, codigo, pais
 
 
 data = []
 
 # percorre empresas
 for empresa in empresas:
-    nome, seguimento, valorCota, valorMercado, site, moeda = get_info(empresa)
+    nome, seguimento, valorCota, valorMercado, site, moeda, codigo, pais = get_info(empresa)
     
     data.append({
         "empresa": empresa,
@@ -92,7 +116,11 @@ for empresa in empresas:
         "seguimento": seguimento,
         "valorCota": valorCota,
         "valorMercado": valorMercado,
-        "site": site
+        "site": site,
+        "moeda": moeda,
+        "codigo": codigo,
+        "pais": pais
+
     })
 
 # 🔥 ordena pelo valor de mercado (maior primeiro)
@@ -102,15 +130,34 @@ ranking = sorted(data, key=lambda x: x["valorMercado"], reverse=True)
 top_10 = ranking[:10]
 
 
+# a alteração vai ser a seguinte orderm
+# Ranking encima junto com o nome
+# abaixo o logo e ao lado superior o codigo e abaixo do codigo
+#teremos o seguimento e pais
+
+
+
 
 st.markdown(f"""
         <div style=" border:1px solid #ddd; padding:15px; border-radius:10px; margin-bottom:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1); diplay:flex; justify-content:space-between;">
-            <h1>1º Lugar</h1>
+            <div>
+                <h1>1º Lugar - {top_10[0]["nome"]}</h1>
+            </div>
             <div style="display:flex; justify-content:space-between; align-items:center;">
-            <img src="https://img.logo.dev/{top_10[0][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                <h2>{top_10[0][ "nome" ]}</h2>
-                <h2>{top_10[0]["valorCota"]}</h2>
-                <h2>{f"${formatar_valor(top_10[0]["valorMercado"])}"}</h2>
+                <div style="display:flex; align-items:center;">
+                    <div>
+                        <h3>{top_10[0][ "codigo" ]}</h3>
+                        <img src="https://img.logo.dev/{top_10[0][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
+                    </div>
+                    <div style="flex:1; margin-left:30px;">
+                        <p>{top_10[0]["seguimento"]}</p>
+                        <p>{top_10[0]["pais"]}</p>
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <h3>{top_10[0]["valorCota"]}</h3>
+                    <h2>{f"${formatar_valor(top_10[0]["valorMercado"])}"}</h2>
+                </div>
             </div>
         </div>
     """, unsafe_allow_html=True)
