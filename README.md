@@ -56,3 +56,7 @@ Aqui está um resumo organizado e limpo de todo o progresso, dificuldades identi
 - Testar o layout final comparando com a imagem de referência.
 
 Quer que eu ajuste alguma parte, adicione mais seções (como Tecnologias Usadas, Como Rodar, etc.) ou deixe mais curto/mais detalhado?
+
+---
+
+05/04/2026 - MUDANÇAS: Notei que o html e o css estava virando uma bagunça, pq eu estava criando CSS em line e estava ficando muito connfuso, cheguei em um layout que gostei +/- mas vou mudar tudo pra um arquvio css por fora, mais simples de trabalhar e de arrumar ele  

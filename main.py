@@ -5,6 +5,9 @@ import requests
 import datetime
 import locale
 
+#titulo da pagina
+st.set_page_config(page_title="Top 10 Empresas", layout="wide", page_icon="📈")
+
 
 # Atualiza data mes e ano atuomaticamente
 try:
@@ -16,12 +19,17 @@ now = datetime.datetime.now()
 month = now.strftime("%B")
 
 
-#titulo da pagina
-
-st.set_page_config(page_title="Top 10 Empresas", layout="wide", page_icon="📈")
 
 
+# Carrega o CSS personalizado
+def load_css():
+    with open("style.css") as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+load_css()
 
+
+
+# Título centralizado (arruma isso no css depois)
 st.markdown(f"""
     <div style="text-align: center;">
         <h2 style = "font-size: 30px; color: rgb(128, 0, 255)">RANKING GLOBAL - {month.upper()} {now.year}</h2>
@@ -123,7 +131,7 @@ for empresa in empresas:
 
     })
 
-# 🔥 ordena pelo valor de mercado (maior primeiro)
+# ordena pelo valor de mercado (maior primeiro)
 ranking = sorted(data, key=lambda x: x["valorMercado"], reverse=True)
 
 # top 10
@@ -139,24 +147,94 @@ top_10 = ranking[:10]
 
 
 st.markdown(f"""
-        <div style=" border:1px solid #ddd; padding:15px; border-radius:10px; margin-bottom:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1); diplay:flex; justify-content:space-between;">
-            <div>
+        <div class="card">
+            <div class="header">
                 <h1>1º Lugar - {top_10[0]["nome"]}</h1>
             </div>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <div style="display:flex; align-items:center;">
-                    <div>
-                        <h3>{top_10[0][ "codigo" ]}</h3>
+            <div class="content">
+                <!-- Logo e código ESQUERDA -->
+                <div class="left">
                         <img src="https://img.logo.dev/{top_10[0][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                    </div>
-                    <div style="flex:1; margin-left:30px;">
+                    <div class="info">
+                        <h3>{top_10[0][ "codigo" ]}</h3>
                         <p>{top_10[0]["seguimento"]}</p>
                         <p>{top_10[0]["pais"]}</p>
                     </div>
                 </div>
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <h3>{top_10[0]["valorCota"]}</h3>
-                    <h2>{f"${formatar_valor(top_10[0]["valorMercado"])}"}</h2>
+                <div class="right">
+                    <div class="metric">
+                        <h3>Valor cota</h3>
+                        <h2>${top_10[0]["valorCota"]}</h2>
+                    </div>
+                    <div class="metric">
+                        <h3>Market Cap</h3>
+                        <h2>${formatar_valor(top_10[0]["valorMercado"])}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+
+st.markdown(f"""
+        <div class="card">
+            <div class="header">
+                <h1>2º Lugar - {top_10[1]["nome"]}</h1>
+            </div>
+            <div class="content">
+                <!-- Logo e código ESQUERDA -->
+                <div class="left">
+                        <img src="https://img.logo.dev/{top_10[1][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
+                    <div>
+                        <h3>{top_10[1][ "codigo" ]}</h3>
+                        <p>{top_10[1]["seguimento"]}</p>
+                        <p>{top_10[1]["pais"]}</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="metric">
+                        <h3>Valor cota</h3>
+                        <h2>{top_10[1]["valorCota"]}</h2>
+                    </div>
+                    <div class="metric">
+                        <h3>Market Cap</h3>
+                        <h2>{f"${formatar_valor(top_10[1]["valorMercado"])}"}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+
+
+
+
+
+
+st.markdown(f"""
+        <div class="card">
+            <div class="header">
+                <h1>3º Lugar - {top_10[2]["nome"]}</h1>
+            </div>
+            <div class="content">
+                <!-- Logo e código ESQUERDA -->
+                <div class="left">
+                        <img src="https://img.logo.dev/{top_10[2][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
+                    <div>
+                        <h3>{top_10[2][ "codigo" ]}</h3>
+                        <p>{top_10[2]["seguimento"]}</p>
+                        <p>{top_10[2]["pais"]}</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="metric">
+                        <h3>Valor cota</h3>
+                        <h2>{top_10[2]["valorCota"]}</h2>
+                    </div>
+                    <div class="metric">
+                        <h3>Market Cap</h3>
+                        <h2>{f"${formatar_valor(top_10[2]["valorMercado"])}"}</h2>
+                    </div>
                 </div>
             </div>
         </div>
@@ -165,130 +243,210 @@ st.markdown(f"""
 
 
 st.markdown(f"""
-        <div style=" border:1px solid #ddd; padding:15px; border-radius:10px; margin-bottom:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1); diplay:flex; justify-content:space-between;">
-            <h1>2º Lugar</h1>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-            <img src="https://img.logo.dev/{top_10[1][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                <h2>{top_10[1][ "nome" ]}</h2>
-                <h2>{top_10[1]["valorCota"]}</h2>
-                <h2>{f"${formatar_valor(top_10[1]["valorMercado"])}"}</h2>
+        <div class="card">
+            <div class="header">
+                <h1>4º Lugar - {top_10[3]["nome"]}</h1>
             </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-
-
-st.markdown(f"""
-        <div style=" border:1px solid #ddd; padding:15px; border-radius:10px; margin-bottom:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1); diplay:flex; justify-content:space-between;">
-            <h1>3º Lugar</h1>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-            <img src="https://img.logo.dev/{top_10[2][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                <h2>{top_10[2][ "nome" ]}</h2>
-                <h2>{top_10[2]["valorCota"]}</h2>
-                <h2>{f"${formatar_valor(top_10[2]["valorMercado"])}"}</h2>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-
-st.markdown(f"""
-        <div style=" border:1px solid #ddd; padding:15px; border-radius:10px; margin-bottom:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1); diplay:flex; justify-content:space-between;">
-            <h1>4º Lugar</h1>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-            <img src="https://img.logo.dev/{top_10[3][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                <h2>{top_10[3][ "nome" ]}</h2>
-                <h2>{top_10[3]["valorCota"]}</h2>
-                <h2>{f"${formatar_valor(top_10[3]["valorMercado"])}"}</h2>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-st.markdown(f"""
-        <div style=" border:1px solid #ddd; padding:15px; border-radius:10px; margin-bottom:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1); diplay:flex; justify-content:space-between;">
-            <h1>5º Lugar</h1>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-            <img src="https://img.logo.dev/{top_10[4][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                <h2>{top_10[4][ "nome" ]}</h2>
-                <h2>{top_10[4]["valorCota"]}</h2>
-                <h2>{f"${formatar_valor(top_10[4]["valorMercado"])}"}</h2>
+            <div class="content">
+                <!-- Logo e código ESQUERDA -->
+                <div class="left">
+                        <img src="https://img.logo.dev/{top_10[3][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
+                    <div>
+                        <h3>{top_10[3][ "codigo" ]}</h3>
+                        <p>{top_10[3]["seguimento"]}</p>
+                        <p>{top_10[3]["pais"]}</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="metric">
+                        <h3>Valor cota</h3>
+                        <h2>{top_10[3]["valorCota"]}</h2>
+                    </div>
+                    <div class="metric">
+                        <h3>Market Cap</h3>
+                        <h2>{f"${formatar_valor(top_10[3]["valorMercado"])}"}</h2>
+                    </div>
+                </div>
             </div>
         </div>
     """, unsafe_allow_html=True)
 
 
 st.markdown(f"""
-        <div style=" border:1px solid #ddd; padding:15px; border-radius:10px; margin-bottom:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1); diplay:flex; justify-content:space-between;">
-            <h1>6º Lugar</h1>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-            <img src="https://img.logo.dev/{top_10[5][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                <h2>{top_10[5][ "nome" ]}</h2>
-                <h2>{top_10[5]["valorCota"]}</h2>
-                <h2>{f"${formatar_valor(top_10[5]["valorMercado"])}"}</h2>
+        <div class="card">
+            <div class="header">
+                <h1>5º Lugar - {top_10[4]["nome"]}</h1>
+            </div>
+            <div class="content">
+                <!-- Logo e código ESQUERDA -->
+                <div class="left">
+                        <img src="https://img.logo.dev/{top_10[4][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
+                    <div>
+                        <h3>{top_10[4][ "codigo" ]}</h3>
+                        <p>{top_10[4]["seguimento"]}</p>
+                        <p>{top_10[4]["pais"]}</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="metric">
+                        <h3>Valor cota</h3>
+                        <h2>{top_10[4]["valorCota"]}</h2>
+                    </div>
+                    <div class="metric">
+                        <h3>Market Cap</h3>
+                        <h2>{f"${formatar_valor(top_10[4]["valorMercado"])}"}</h2>
+                    </div>
+                </div>
             </div>
         </div>
     """, unsafe_allow_html=True)
 
 
 st.markdown(f"""
-        <div style=" border:1px solid #ddd; padding:15px; border-radius:10px; margin-bottom:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1); diplay:flex; justify-content:space-between;">
-            <h1>7º Lugar</h1>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-            <img src="https://img.logo.dev/{top_10[6][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                <h2>{top_10[6][ "nome" ]}</h2>
-                <h2>{top_10[6]["valorCota"]}</h2>
-                <h2>{f"${formatar_valor(top_10[6]["valorMercado"])}"}</h2>
+        <div class="card">
+            <div class="header">
+                <h1>6º Lugar - {top_10[5]["nome"]}</h1>
             </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-
-
-st.markdown(f"""
-        <div style=" border:1px solid #ddd; padding:15px; border-radius:10px; margin-bottom:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1); diplay:flex; justify-content:space-between;">
-            <h1>8º Lugar</h1>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-            <img src="https://img.logo.dev/{top_10[7][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                <h2>{top_10[7][ "nome" ]}</h2>
-                <h2>{top_10[7]["valorCota"]}</h2>
-                <h2>{f"${formatar_valor(top_10[7]["valorMercado"])}"}</h2>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-
-st.markdown(f"""
-        <div style=" border:1px solid #ddd; padding:15px; border-radius:10px; margin-bottom:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1); diplay:flex; justify-content:space-between;">
-            <h1>9º Lugar</h1>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-            <img src="https://img.logo.dev/{top_10[8][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                <h2>{top_10[8][ "nome" ]}</h2>
-                <h2>{top_10[8]["valorCota"]}</h2>
-                <h2>{f"${formatar_valor(top_10[8]["valorMercado"])}"}</h2>
+            <div class="content">
+                <!-- Logo e código ESQUERDA -->
+                <div class="left">
+                        <img src="https://img.logo.dev/{top_10[5][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
+                    <div>
+                        <h3>{top_10[5][ "codigo" ]}</h3>
+                        <p>{top_10[5]["seguimento"]}</p>
+                        <p>{top_10[5]["pais"]}</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="metric">
+                        <h3>Valor cota</h3>
+                        <h2>{top_10[5]["valorCota"]}</h2>
+                    </div>
+                    <div class="metric">
+                        <h3>Market Cap</h3>
+                        <h2>{f"${formatar_valor(top_10[5]["valorMercado"])}"}</h2>
+                    </div>
+                </div>
             </div>
         </div>
     """, unsafe_allow_html=True)
 
 
 st.markdown(f"""
-        <div style=" border:1px solid #ddd; padding:15px; border-radius:10px; margin-bottom:10px; box-shadow:2px 2px 5px rgba(0,0,0,0.1); diplay:flex; justify-content:space-between;">
-            <h1>10º Lugar</h1>
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-            <img src="https://img.logo.dev/{top_10[9][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                <h2>{top_10[9][ "nome" ]}</h2>
-                <h2>{top_10[9]["valorCota"]}</h2>
-                <h2>{f"${formatar_valor(top_10[9]["valorMercado"])}"}</h2>
+        <div class="card">
+            <div class="header">
+                <h1>7º Lugar - {top_10[6]["nome"]}</h1>
+            </div>
+            <div class="content">
+                <!-- Logo e código ESQUERDA -->
+                <div class="left">
+                        <img src="https://img.logo.dev/{top_10[6][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
+                    <div>
+                        <h3>{top_10[6][ "codigo" ]}</h3>
+                        <p>{top_10[6]["seguimento"]}</p>
+                        <p>{top_10[6]["pais"]}</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="metric">
+                        <h3>Valor cota</h3>
+                        <h2>{top_10[6]["valorCota"]}</h2>
+                    </div>
+                    <div class="metric">
+                        <h3>Market Cap</h3>
+                        <h2>{f"${formatar_valor(top_10[6]["valorMercado"])}"}</h2>
+                    </div>
+                </div>
             </div>
         </div>
     """, unsafe_allow_html=True)
 
 
+st.markdown(f"""
+        <div class="card">
+            <div class="header">
+                <h1>8º Lugar - {top_10[7]["nome"]}</h1>
+            </div>
+            <div class="content">
+                <!-- Logo e código ESQUERDA -->
+                <div class="left">
+                        <img src="https://img.logo.dev/{top_10[7][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
+                    <div>
+                        <h3>{top_10[7][ "codigo" ]}</h3>
+                        <p>{top_10[7]["seguimento"]}</p>
+                        <p>{top_10[7]["pais"]}</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="metric">
+                        <h3>Valor cota</h3>
+                        <h2>{top_10[7]["valorCota"]}</h2>
+                    </div>
+                    <div class="metric">
+                        <h3>Market Cap</h3>
+                        <h2>{f"${formatar_valor(top_10[7]["valorMercado"])}"}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 
 
+st.markdown(f"""
+        <div class="card">
+            <div class="header">
+                <h1>9º Lugar - {top_10[8]["nome"]}</h1>
+            </div>
+            <div class="content">
+                <!-- Logo e código ESQUERDA -->
+                <div class="left">
+                        <img src="https://img.logo.dev/{top_10[8][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
+                    <div>
+                        <h3>{top_10[8][ "codigo" ]}</h3>
+                        <p>{top_10[8]["seguimento"]}</p>
+                        <p>{top_10[8]["pais"]}</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="metric">
+                        <h3>Valor cota</h3>
+                        <h2>{top_10[8]["valorCota"]}</h2>
+                    </div>
+                    <div class="metric">
+                        <h3>Market Cap</h3>
+                        <h2>{f"${formatar_valor(top_10[8]["valorMercado"])}"}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
 
-# COLA
-#f"{valor:.2f}"
-# nome = displayName
-# seguimento = industry
-# valor da cota = pricing -> currentPrice
-# valor de mercado = marketData -> marketCap
 
+st.markdown(f"""
+        <div class="card">
+            <div class="header">
+                <h1>10º Lugar - {top_10[9]["nome"]}</h1>
+            </div>
+            <div class="content">
+                <!-- Logo e código ESQUERDA -->
+                <div class="left">
+                        <img src="https://img.logo.dev/{top_10[9][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
+                    <div>
+                        <h3>{top_10[9][ "codigo" ]}</h3>
+                        <p>{top_10[9]["seguimento"]}</p>
+                        <p>{top_10[9]["pais"]}</p>
+                    </div>
+                </div>
+                <div class="right">
+                    <div class="metric">
+                        <h3>Valor cota</h3>
+                        <h2>{top_10[9]["valorCota"]}</h2>
+                    </div>
+                    <div class="metric">
+                        <h3>Market Cap</h3>
+                        <h2>{f"${formatar_valor(top_10[9]["valorMercado"])}"}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)

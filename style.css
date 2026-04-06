@@ -1,0 +1,69 @@
+.card {
+    background-color: #10232a;
+    color: #d3c3b9;
+    border: 1px solid #1f3a42;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    font-family: 'Inter', sans-serif;
+}
+
+.header {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.left img {
+    border-radius: 5%;
+    
+}
+
+.info h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.info p {
+    margin: 2px 0;
+    font-size: 14px;
+    color: #a79e9c;
+}
+
+.right {
+    display: flex;
+    gap: 60px;
+}
+
+.metric {
+    text-align: right;
+}
+
+.metric h3 {
+    margin: 0;
+    font-size: 13px;
+    color: #a79e9c;
+    font-weight: 500;
+}
+
+.metric h2 {
+    margin: 5px 0 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    font-variant-numeric: tabular-nums;
+}
