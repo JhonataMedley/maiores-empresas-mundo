@@ -185,7 +185,7 @@ st.markdown(f"""
                 <!-- Logo e código ESQUERDA -->
                 <div class="left">
                         <img src="https://img.logo.dev/{top_10[1][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                    <div>
+                    <div class="info">
                         <h3>{top_10[1][ "codigo" ]}</h3>
                         <p>{top_10[1]["seguimento"]}</p>
                         <p>{top_10[1]["pais"]}</p>
@@ -220,7 +220,7 @@ st.markdown(f"""
                 <!-- Logo e código ESQUERDA -->
                 <div class="left">
                         <img src="https://img.logo.dev/{top_10[2][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                    <div>
+                    <div class="info">
                         <h3>{top_10[2][ "codigo" ]}</h3>
                         <p>{top_10[2]["seguimento"]}</p>
                         <p>{top_10[2]["pais"]}</p>
@@ -251,7 +251,7 @@ st.markdown(f"""
                 <!-- Logo e código ESQUERDA -->
                 <div class="left">
                         <img src="https://img.logo.dev/{top_10[3][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                    <div>
+                    <div class="info">
                         <h3>{top_10[3][ "codigo" ]}</h3>
                         <p>{top_10[3]["seguimento"]}</p>
                         <p>{top_10[3]["pais"]}</p>
@@ -281,7 +281,7 @@ st.markdown(f"""
                 <!-- Logo e código ESQUERDA -->
                 <div class="left">
                         <img src="https://img.logo.dev/{top_10[4][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                    <div>
+                    <div class="info">
                         <h3>{top_10[4][ "codigo" ]}</h3>
                         <p>{top_10[4]["seguimento"]}</p>
                         <p>{top_10[4]["pais"]}</p>
@@ -311,7 +311,7 @@ st.markdown(f"""
                 <!-- Logo e código ESQUERDA -->
                 <div class="left">
                         <img src="https://img.logo.dev/{top_10[5][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                    <div>
+                    <div class="info">
                         <h3>{top_10[5][ "codigo" ]}</h3>
                         <p>{top_10[5]["seguimento"]}</p>
                         <p>{top_10[5]["pais"]}</p>
@@ -341,7 +341,7 @@ st.markdown(f"""
                 <!-- Logo e código ESQUERDA -->
                 <div class="left">
                         <img src="https://img.logo.dev/{top_10[6][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                    <div>
+                    <div class="info">
                         <h3>{top_10[6][ "codigo" ]}</h3>
                         <p>{top_10[6]["seguimento"]}</p>
                         <p>{top_10[6]["pais"]}</p>
@@ -371,7 +371,7 @@ st.markdown(f"""
                 <!-- Logo e código ESQUERDA -->
                 <div class="left">
                         <img src="https://img.logo.dev/{top_10[7][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                    <div>
+                    <div class="info">
                         <h3>{top_10[7][ "codigo" ]}</h3>
                         <p>{top_10[7]["seguimento"]}</p>
                         <p>{top_10[7]["pais"]}</p>
@@ -401,7 +401,7 @@ st.markdown(f"""
                 <!-- Logo e código ESQUERDA -->
                 <div class="left">
                         <img src="https://img.logo.dev/{top_10[8][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                    <div>
+                    <div class="info">
                         <h3>{top_10[8][ "codigo" ]}</h3>
                         <p>{top_10[8]["seguimento"]}</p>
                         <p>{top_10[8]["pais"]}</p>
@@ -431,7 +431,7 @@ st.markdown(f"""
                 <!-- Logo e código ESQUERDA -->
                 <div class="left">
                         <img src="https://img.logo.dev/{top_10[9][ "nome" ]}.com?token=pk_SlI7v-mxRsCxrTc0brx3_w&retina=true" width="90">
-                    <div>
+                    <div class="info">
                         <h3>{top_10[9][ "codigo" ]}</h3>
                         <p>{top_10[9]["seguimento"]}</p>
                         <p>{top_10[9]["pais"]}</p>
